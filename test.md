@@ -4,28 +4,36 @@
 
 # この発表について
 
- - 私は巨大数について全然詳しくないです
-   - フィッシュさんの本を読んで勉強中
- - 今回話すのは計算論についてです
- - 今回の計算論の話は，巨大数を考える上で役に立つかもしれない（立たないかもしれない）
+- 私は巨大数について全然詳しくないです
+  - フィッシュさんの本を読んで勉強中
+- 今回話すのは計算論についてです
+- 今回の計算論の話は，巨大数を考える上で役に立つかもしれない（立たないかもしれない）
+
+# 仮定する知識
+- 初歩的なプログラミング能力
+  - 構文解析して意味付けするようなプログラミングをしていればだいたいOK
+- 情報，工学系2年次くらいの計算論の知識
+  - チューリングマシン，万能チューリングマシン 
+  - 決定可能，半決定可能，決定不能問題など
+- ある程度の論理式を読む能力（$\forall, \exists$など）
+  - 1階述語論理の完全性などがわかれば十分
 
 # 今回の目標
 1. 極限補題を理解する
-    - $g$が極限計算可能 $\Leftrightarrow$ $g\preceq_{T} Halt$ 
+    - $g$が極限計算可能 $\Leftrightarrow$ $g\preceq_{T} Halt（の特性関数）$ 
 1. （ほとんど同じようなことだけど）極限計算可能集合が$\Delta_2$
-    - $\mathbb{A}$の特性関数$g$が極限計算可能である  $\Leftrightarrow \mathbb{A} \in  \Delta_2$
+    - $\mathbb{A}$の特性関数が極限計算可能である  $\Leftrightarrow \mathbb{A} \in  \Delta_2$
 
 
 # 目次
 1. チューリングマシンと極限計算可能について
 1. 極限計算可能性の概要
-1. (計算|決定|半決定)可能，決定不能についてのおさらい
-1. 算術階層について．算術階層の厳密性
+1. 決定可能，半決定可能，決定不能についてのおさらい
 1. 神託付きチューリングマシンとTuring還元
+1. 算術階層について．算術階層の厳密性
 1. 休憩（10分くらい）
 1. 極限計算可能
 1. 極限定理
-1. 極限計算可集合と算術階層 
 1. （時間があれば）機械学習と極限計算可能性の話（計算論的学習理論）
 
 # 記号の定義
@@ -104,44 +112,47 @@ $\forall \sigma \in \Sigma^*$ に対して，チューリングマシン$M$の�
 
 ある関数自然数上の関数$f$の値域が$\{0,1\}$の場合，その関数を特性関数（述語のようなもの）とみなせば，$f$が定義する集合$\mathbb{A} \subseteq \mathbb{N}$を定めることができる．
 
-\begin{block}{集合$\mathbb{A}$が決定可能（計算可能,$\mathbf{R}$）}
+\begin{block}{定義：集合$\mathbb{A}$が決定可能（計算可能）}
 \[
-x \in \mathbb{A} \Leftrightarrow fが\mathbb{A}の特性関数 かつ f が計算可能
+x \in \mathbb{A} \Leftrightarrow \mathbb{A}の特性関数が計算可能
 \]
 \end{block}
+決定可能な集合の全体を$\mathbf{R}$で表す．
 
 - 問題：計算可能な関数全体（$\{f|fは計算可能\}$）の大きさはどのくらいになるだろうか？
 
 # 計算不能な関数，決定不能な問題
 
-\begin{block}{定義: 部分関数 $f \subseteq \mathbb{N}^K \to \mathbb{N} $ が計算不能}
+\begin{block}{定義: 部分関数 $f \subseteq \mathbb{N}^K \to \mathbb{N} $ が計算不可能}
 \[
-fが計算可能ではないとき，fを計算不能という
+fが計算可能ではない
 \]
 \end{block}
 計算可能な関数全体はたかだか可算であるのに対して，$\mathbb{N}^{\mathbb{N}}$は非可算濃度存在する（$\{0,1\}^{\mathbb{N}}$の時点で非可算）ので，明らかに計算不能な関数が存在する．
 
-\begin{block}{集合$\mathbb{A}$が決定不能}
-\[\mathbb{A}に対する計算可能な特性関数が存在しないとき，\mathbb{A}を決定不能という\]
+\begin{block}{定義：集合$\mathbb{A}$が決定不能}
+\[\mathbb{A}に対する計算可能な特性関数が存在しない\]
 \end{block}
 
-$Halt$（$<e,n>\in Halt$ ならば， $[e](n)\downarrow$）も決定不能な集合の一つである．しかし，$Halt$は，**半分決定可能**であるという性質がある．それは，$Halt$の特性関数（以降，$\chi_{Halt}$とする．これは，計算不能な関数ではあるが，れっきとした自然数上の関数である）に関して，停止する場合に限っていえば対応する$TM$を構成することが可能だからである（単にシミュレートして，止まったら1を返す）．
+$Halt$（$<e,n>\in Halt$ ならば， $[e](n)\downarrow$）も決定不能な集合の一つである．しかし，$Halt$は，**半分決定可能**であるという性質がある．それは，$Halt$の特性関数（以降，$\chi_{Halt}$とする．これは，計算不能な関数ではあるが，れっきとした自然数上の関数である）に関して，停止する場合に限っていえば対応する$TM$を構成することが可能だからである（単にシミュレートして，止まったら1を返せばよい）．
 
 
-# 半決定可能$\mathbf{RE}$
-\begin{block}{集合$\mathbb{A}$が半決定可能（$\mathbf{RE}$）}
+# 半決定可能
+\begin{block}{定義：集合$\mathbb{A}$が半決定可能}
 \[
 \forall n \in \mathbb{N}\{ n \in \mathbb{A} \Leftrightarrow [M](n)\downarrow \}
 \]
 \end{block}
+半決定可能な集合の全体を$\mathbf{RE}$で表す．
+また，補集合が$\mathbf{RE}$となるような集合全体を$\mathbf{Co-RE}$で表す．つまり，$\mathbb{B} \in \mathbf{Co-RE} ならば，\forall n \in \mathbb{N}\{ n \not{\in} \mathbb{B} \Leftrightarrow [M](n)\downarrow \}$となる．明らかに，$Halt^C \in \mathbf{Co-RE}$である．
 
 また，以下の定理が成り立つ
-[
-\begin{block}{}
+\begin{block}{ポストの定理}
 \[
 \mathbb{A} \in \mathbf{R} \Leftrightarrow \mathbb{A} \in \mathbf{RE} \land \mathbb{A}^C \in \mathbf{RE}
 \]
 \end{block}
+証明： $\mathbb{A}, \mathbb{A}^C$に対応するチューリングマシン2台を並列に動作させるチューリングマシンを考えれば，明らか．
 
 
 
@@ -151,6 +162,8 @@ $Halt$（$<e,n>\in Halt$ ならば， $[e](n)\downarrow$）も決定不能な集
   - また，入力されるストリームとは別に，出力のストリームも当然必要である
 - ストリーム計算のモデルを用いると，神託つきTM，極限計算のモデルなども考えやすい
 
+# ストリーム計算のイメージ
+- 黒板
 
 # ストリーム計算の定義
 
@@ -162,10 +175,10 @@ $\sigma,\tau \in \mathbb{A}^* $ のとき，$\sigma$ が $\tau$ の始切片で�
 
 \begin{block}{定義：部分関数が単調}
 $\phi \subseteq \mathbb{A}^* \to \mathbb {A}^* $ が単調とは以下が成り立つことである
-\[ \sigma \lesssim \tau ならば，\phi(\sigma) \lesssim \phi(\tau) \]
+\[ \sigma \lesssim \tau \ ならば，\ \phi(\sigma) \lesssim \phi(\tau) \]
 \end{block}
 
-\begin{block}{定義：関数の拡張$\hat{}$}
+\begin{block}{定義：}
 部分単調関数 $\phi \subseteq \mathbb{A}^* \to \mathbb{A}^*$ が与えられたとき，新たな部分関数$\hat{\phi} \subseteq \mathbb{A}^{\mathbb{N}} \to \mathbb{A}^{\mathbb{N}}$を次のように定義する
 \[ \hat{\phi}(X)(n)=m \Leftrightarrow \exists \sigma \lesssim X \{ \phi (\sigma) = m \}\]
 \end{block}
@@ -175,37 +188,34 @@ $\phi \subseteq \mathbb{A}^* \to \mathbb {A}^* $ が単調とは以下が成り�
 \end{block}
 
 
+# ストリーム計算のイメージ
+- 黒板
 
 # オラクルマシンと神託つき$TM$
 
 - オラクルマシンとはほげほげ
 - 神託を使うことで，階層を考えることができる
-- 神託機つき$TM$の計算モデルは，ストリームの計算処理のモデルにもなる（今回は触れない）
 
 # 神託チューリングマシン
-
+黒板で
 
 # チューリング還元とチューリングジャンプと無限増大列
 
 \begin{block}{チューリング還元}
-関数f,gが与えられたとき，にチューリング還元されるとは，が存在することである．このとき，相対的に県最可能（あるいは，$g$計算可能）という
-このとき，$f \leq_T g$とあらわす．
+関数$f,g$が与えられたとき，$f$が$g$にチューリング還元される（あるいは，$f$が$g$-相対計算可能である）とは，ある部分計算可能な$\Phi \subseteq A^* \to A^*$に対して，$f =  \Phi(g)$となることである．このとき，$f \leq_T g$とあらわす．
 \end{block}
-
 
 - 問題：＊＊＊＊は，オラクルマシンだと言われたりしているが，本当にそうだろうか？検討をしてみよう
 
-\begin{block}{aaa}
-任意の自然数上の関数$g$に対して，$g <_{T} Halt^g$ が成り立つ
+\begin{block}{定理}
+任意の自然数上の関数$g$に対して，$g <_{T} \chi_{Halt}^g$ が成り立つ
 \end{block}
-証明：$g \leq_T Halt^g$はほとんど明らか．$Halt^g \not{<_T} g$については，相対計算可能な神託チューリングマシンで再度停止性問題を考える．
+証明：$g \leq_T \chi_{Halt}^g$はほとんど明らか．$\chi_{Halt}^g \not{<_T} \ g$については，相対計算可能な神託チューリングマシンで再度停止性問題を考える．
 
-上記の結果から，以下のような無限増大列が存在することがわかる
-ただし，「'」で相対的な停止性問題を表す．つまり，$\emptyset''$は$Halt^{Halt}$を表す．
-
-\[ 
-\emptyset <_T \emptyset^{'} <_T \emptyset^{''} <_T
-\]
+\begin{block}{系：チューリング還元の無限増加列の存在}
+$\emptyset <_T \emptyset^{'} <_T \emptyset^{''} <_T ...$
+ただし，「'」は，相対的な停止性問題を表す．つまり，$\emptyset^{''}$は$\chi_{Halt}^{\chi_{Halt}}$を表す．
+\end{block}
 
 # 算術の論理式
 
@@ -220,7 +230,7 @@ $\phi \subseteq \mathbb{A}^* \to \mathbb {A}^* $ が単調とは以下が成り�
 閉論理式: 自由変更を一つも含まない論理式（文）
 \end{block}
 
-**注意** 含意$\bar{\to}$，存在$\bar{\exists}$，限定量化$\bar{\forall} {\bf x} \bar{\leq} t$ 等は，$\bar{\lnot}, \bar{\land}, \bar{\forall}$を用いて定義可能である．
+**注意：**含意$\bar{\to}$，存在$\bar{\exists}$，限定量化$\bar{\forall} {\bf x} \bar{\leq} t$ 等は，$\bar{\lnot}, \bar{\land}, \bar{\forall}$を用いて定義可能である．
 
 上記の定義だけでは，厳密なSyntaxを与えられていないが，そこは気持ちを感じ取って欲しい．
 
@@ -272,7 +282,7 @@ $\phi \subseteq \mathbb{A}^* \to \mathbb {A}^* $ が単調とは以下が成り�
 
 # 標準モデルと算術の論理式が定義視する集合
 \begin{block}{標準モデルにおいて真}
-解釈$\mathscr{F}(\varphi) = True$であるとき，$\varphi$が標準モデルにおいて真であるといい，
+（上で定義した）$\mathscr{F}(\varphi) = True$であるとき，$\varphi$が標準モデルにおいて真であるといい，
 $\mathbb{N} \models \varphi$ と記述する．
 \end{block}
 
@@ -287,7 +297,7 @@ $A({\bf x})$を1変数論理式とする．このとき$A$が定める集合$\ma
 - 問題：$P({\bf x}): \bar{\exists}{\bf y}\{2{\bf y} \bar{=} {\bf x}\}$が$2\mathbb{N}$を定義することを確認せよ．
 
 # 算術的階層（$\Delta_0$論理式，$\Sigma_{i}$論理式，$\Pi_{i}$論理式）
-\begin{block}{$\Delta_0$論理式，$\Sigma_{i}$論理式，$\Pi_{i}$論理式}
+\begin{block}{定義：$\Delta_0$論理式，$\Sigma_{i}$論理式，$\Pi_{i}$論理式}
 \begin{eqnarray*}
   &\Delta_0 論理式&： 量化子がある場合，限定量化のみの論理式\\
   &\Sigma_1 論理式&： \exists x_1...\exists x_n\varphi の形の論理式．ただし，n \geq 0 で，\varphi \in \Delta_0\\
@@ -298,7 +308,7 @@ $A({\bf x})$を1変数論理式とする．このとき$A$が定める集合$\ma
 \end{block}
 
 # 算術的階層（$\Sigma_{i}$集合，$\Pi_{i}$集合，$\Delta_{i}$集合）
-\begin{block}{$\Sigma_{i}$集合,$\Pi_{i}$集合,$\Delta_i$集合}
+\begin{block}{定義：$\Sigma_{i}$集合，$\Pi_{i}$集合，$\Delta_i$集合}
 \begin{eqnarray*}
   &\Delta_0 集合&： \Delta_0 論理式によって定義可能な自然数の集合\\
   &\Sigma_{i} 集合&： \Sigma_i〃 \\
@@ -314,15 +324,17 @@ $\Delta_i(\Sigma_i, \Pi_i)$集合全体のことを単に$\Delta_i(\Sigma_i, \Pi
 
 # 算術的階層の厳密性
 
-
 以下の命題が成り立つ．
-- $\mathbb{A} \in R（決定定可能集合全体） \Leftrightarrow \mathbb{A}\in \Delta_1$
-- $\mathbb{A} \in RE（半決定可能集合全体） \Leftrightarrow \mathbb{A}\in \Sigma_1$
-- $\mathbb{A} \in RE^C \Leftrightarrow \mathbb{A}\in \Pi_1$
-- $\Delta_i$を計算可能な神託チューリングマシンMに対して，Haltヲタすす神託チューリングマシンは，を（相対的に）決定可能である
-気持ち：Δ1におけるμ作用が可能な四季がΔi+1になっていることをかんがえる
-- 算術的階層は厳密である
-- チューリングジャンプ間のあれをいい感じにすればよい
+
+- $\mathbb{A} \in \mathbf{R}（決定定可能集合全体） \Leftrightarrow \mathbb{A}\in \Delta_1$
+- $\mathbb{A} \in \mathbf{RE}（半決定可能集合全体） \Leftrightarrow \mathbb{A}\in \Sigma_1$
+- $\mathbb{A} \in \mathbf{Co-RE} \Leftrightarrow \mathbb{A}\in \Pi_1$
+- $\mathbb{A} \in \Delta_i \Leftrightarrow \chi_{\mathbb{A}} <_T \emptyset の$i-1$回のチューリングジャンプ$
+
+\begin{block}{定理：算術的階層は厳密である}
+図
+\end{block}
+証明：
 
 
 # 休憩
@@ -342,18 +354,15 @@ $\Delta_i(\Sigma_i, \Pi_i)$集合全体のことを単に$\Delta_i(\Sigma_i, \Pi
 \]
 \end{block}
 
-
-# 極限計算可能と算術階層
-
-極限計算可能集合は，実は，$\Delta_2$ と等しい
-\begin{block}{極限補題}
+証明：がんばる 
+\begin{block}{系}
 \[
   \mathbb{A}の特性関数gが極限計算可能である  \Leftrightarrow \mathbb{A} \in  \Delta_2
 \]
 \end{block}
 
-証明：黒板
+証明：極限補題と，算術階層の定理より明らか
 
-# ストリーム計算と極限学習（時間が余ったら）
+# 極限学習（時間が余ったら）
 - https://qiita.com/lambda_x_x/items/af69e2b46c44120bf68e
 - 林先生の動画
