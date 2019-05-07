@@ -21,7 +21,7 @@
 # 今回の目標
 1. 極限補題を理解する
     - $g$が極限計算可能 $\Leftrightarrow$ $g\preceq_{T} Halt（の特性関数）$ 
-1. （ほとんど同じようなことだけど）極限計算可能集合が$\Delta_2$
+1. （ほとんど同じようなことだけど）極限計算可能集合$= \Delta_2$を理解する
     - $\mathbb{A}$の特性関数が極限計算可能である  $\Leftrightarrow \mathbb{A} \in  \Delta_2$
 
 
@@ -43,7 +43,7 @@
 - $\subseteq$: 部分集合，$\subset$: 真部分集合
 - $dom(f)$: 関数fの定義域，$f \subseteq \mathbb{A} \to \mathbb{A}$: $f$ は $\mathbb{A} \to \mathbb{A}$ の部分関数 
 - $\mathbb{A}^C$: 集合$\mathbb{A}$の補集合，$\mathbb{A}^k$: 集合$\mathbb{A}$の$k$個の直積 ，$\mathbb{B}^{\mathbb{A}}$: $\{f| f: \mathbb{A} \to \mathbb{B} \}$
-- $TM$: チューリングマシン（文脈で分かる場合，$TM$全体の集合），$UTM$： 万能TM
+- $TM$: チューリングマシン（文脈で分かる場合，$TM$全体の集合），$UTM$： 万能$TM$
 - $\Sigma$: 文字集合（有限集合），$\Sigma^*$: すべての文字列からなる集合，$L$: 言語（$\Sigma^*$の部分集合）
  
 
@@ -123,7 +123,7 @@ x \in \mathbb{A} \Leftrightarrow \mathbb{A}の特性関数が計算可能
 
 # 計算不能な関数，決定不能な問題
 
-\begin{block}{定義: 部分関数 $f \subseteq \mathbb{N}^K \to \mathbb{N} $ が計算不可能}
+\begin{block}{定義: 部分関数 $f \subseteq \mathbb{N}^K \to \mathbb{N} $ が計算不能}
 \[
 fが計算可能ではない
 \]
@@ -144,8 +144,9 @@ $Halt$（$<e,n>\in Halt$ ならば， $[e](n)\downarrow$）も決定不能な集
 \]
 \end{block}
 半決定可能な集合の全体を$\mathbf{RE}$で表す．
-また，補集合が$\mathbf{RE}$となるような集合全体を$\mathbf{Co-RE}$で表す．つまり，$\mathbb{B} \in \mathbf{Co-RE} ならば，\forall n \in \mathbb{N}\{ n \not{\in} \mathbb{B} \Leftrightarrow [M](n)\downarrow \}$となる．明らかに，$Halt^C \in \mathbf{Co-RE}$である．
+また，補集合が$\mathbf{RE}$となるような集合全体を$\mathbf{Co\mathchar`-RE}$で表す．つまり，$\mathbb{B} \in \mathbf{Co\mathchar`-RE}$ ならば，$\forall n \in \mathbb{N}\{ n \not{\in} \mathbb{B} \Leftrightarrow [M](n)\downarrow \}$となる．明らかに，$Halt^C \in \mathbf{Co\mathchar`-RE}$である．
 
+# ポストの定理
 また，以下の定理が成り立つ
 \begin{block}{ポストの定理}
 \[
@@ -155,6 +156,12 @@ $Halt$（$<e,n>\in Halt$ ならば， $[e](n)\downarrow$）も決定不能な集
 証明： $\mathbb{A}, \mathbb{A}^C$に対応するチューリングマシン2台を並列に動作させるチューリングマシンを考えれば，明らか．
 
 
+\begin{block}{系：$Halt$の性質}
+\[Halt \in \mathbf{RE} \land Halt \not{\in} \mathbf{Co\mathchar`-RE} \land Halt^C \in \mathbf{Co\mathchar`-RE} \land Halt^C \not{\in} \mathbf{RE}\]
+\end{block}
+証明：$Halt$の性質，ポストの定理より明らか．
+
+つまり，$\mathbf{RE} \not{\subseteq} \mathbf{Co\mathchar`-RE}$かつ$\mathbf{Co\mathchar`-RE} \not{\subseteq} \mathbf{RE}$であり，$Halt$は真に$\mathbf{RE}$であり，$Halt^C$は真に$\mathbf{Co\mathchar`-RE}$である．
 
 # ストリーム計算のモデル
 - チューリングマシンは，「停止性」に重きをおいているが，現在の我々のコンピューティングを考えると，オンラインでのリアルタイム処理をはじめ，無限ループ（非停止）とはまた別の意味で，動き続ける原理が必要である．
@@ -273,12 +280,12 @@ $\emptyset <_T \emptyset^{'} <_T \emptyset^{''} <_T ...$
 \]
 \[
   \mathscr{F}(\bar{\forall}{\bf x}.A)  = \begin{cases}
-   True &  \{\mathscr{F}(A[nに対応する数項/x])| n \in \mathbb{N}\} = \{True\} \\
-   False &  \{\mathscr{F}(A[nに対応する数項/x])| n \in \mathbb{N}\} \neq \{True\} \\
+   True &  \{\mathscr{F}(A[nに対応する数項/{\bf x}])| n \in \mathbb{N}\} = \{True\} \\
+   False &  \{\mathscr{F}(A[nに対応する数項/{\bf x}])| n \in \mathbb{N}\} \neq \{True\} \\
   \end{cases}
 \]
 \end{block}
-- 問題：$\bar{\exists} x.A$，$\bar{\forall}{\bf x}\leq t.A$ の解釈を定義してみよう
+- 問題：$\bar{\exists} {\bf x}.A$，$\bar{\forall}{\bf x}\leq t.A$ の解釈を定義してみよう
 
 # 標準モデルと算術の論理式が定義視する集合
 \begin{block}{標準モデルにおいて真}
@@ -307,6 +314,8 @@ $A({\bf x})$を1変数論理式とする．このとき$A$が定める集合$\ma
 \end{eqnarray*}
 \end{block}
 
+- $\Sigma$，$\Pi$に対しては，$i>0$
+
 # 算術的階層（$\Sigma_{i}$集合，$\Pi_{i}$集合，$\Delta_{i}$集合）
 \begin{block}{定義：$\Sigma_{i}$集合，$\Pi_{i}$集合，$\Delta_i$集合}
 \begin{eqnarray*}
@@ -317,8 +326,8 @@ $A({\bf x})$を1変数論理式とする．このとき$A$が定める集合$\ma
 \end{eqnarray*}
 \end{block}
 
-$\Delta_i(\Sigma_i, \Pi_i)$集合全体のことを単に$\Delta_i(\Sigma_i, \Pi_i)$という．
-
+- $\Sigma$，$\Pi$に対しては，$i>0$
+- $\Delta_i(\Sigma_i, \Pi_i)$集合全体のことを単に$\Delta_i(\Sigma_i, \Pi_i)$という．
 - 包含関係があるのは自明だが，真に厳密な包含関係であることをお兄さんと見ていこう
 
 
@@ -328,7 +337,7 @@ $\Delta_i(\Sigma_i, \Pi_i)$集合全体のことを単に$\Delta_i(\Sigma_i, \Pi
 
 - $\mathbb{A} \in \mathbf{R}（決定定可能集合全体） \Leftrightarrow \mathbb{A}\in \Delta_1$
 - $\mathbb{A} \in \mathbf{RE}（半決定可能集合全体） \Leftrightarrow \mathbb{A}\in \Sigma_1$
-- $\mathbb{A} \in \mathbf{Co-RE} \Leftrightarrow \mathbb{A}\in \Pi_1$
+- $\mathbb{A} \in \mathbf{Co\mathchar`-RE} \Leftrightarrow \mathbb{A}\in \Pi_1$
 - $\mathbb{A} \in \Delta_i \Leftrightarrow \chi_{\mathbb{A}} <_T \emptyset の$i-1$回のチューリングジャンプ$
 
 \begin{block}{定理：算術的階層は厳密である}
@@ -350,14 +359,14 @@ $\Delta_i(\Sigma_i, \Pi_i)$集合全体のことを単に$\Delta_i(\Sigma_i, \Pi
 極限補題は，極限計算可能性とチューリング還元についての関係性を述べる
 \begin{block}{極限補題}
 \[
-  gが極限計算可能 \Leftrightarrow g\preceq_{T} Halt
+  gが極限計算可能 \Leftrightarrow g\preceq_{T} \chi{Halt}
 \]
 \end{block}
 
 証明：がんばる 
 \begin{block}{系}
 \[
-  \mathbb{A}の特性関数gが極限計算可能である  \Leftrightarrow \mathbb{A} \in  \Delta_2
+  \mathbb{A}が極限計算可能集合  \Leftrightarrow \mathbb{A} \in  \Delta_2
 \]
 \end{block}
 
